@@ -1,0 +1,50 @@
+{
+  "name": "glitz-style-function",
+  "version": "0.0.1",
+  "main": "./cjs/index.js",
+  "module": "./jsm/index.js",
+  "esnext": "./esnext/index.js",
+  "types": "./esnext/index.d.ts",
+  "license": "MIT",
+  "author": "Fredrik Nicol <fredrik.nicol@gmail.com>",
+  "homepage": "https://github.com/frenic/glitz-style-function",
+  "repository": "git@github.com:frenic/glitz-style-function.git",
+  "bugs": "https://github.com/frenic/glitz-style-function/issues",
+  "side-effects": false,
+  "scripts": {
+    "clean": "rimraf cjs esnext jsm",
+    "lint": "tslint --fix src/*.ts",
+    "pretty": "prettier --write \"**/*.{js,json,ts,tsx,html,md}\"",
+    "test": "jest",
+    "build": "tsc -p tsconfig.cjs.json & tsc -p tsconfig.esnext.json & tsc -p tsconfig.jsm.json",
+    "lazy": "npm run lint && npm run pretty",
+    "prepublish": "npm run test && npm run build"
+  },
+  "dependencies": {
+    "@glitz/type": "^1.1.4"
+  },
+  "peerDependencies": {
+    "@glitz/react": "^1.1.5"
+  },
+  "devDependencies": {
+    "@glitz/core": "^1.1.5",
+    "@glitz/react": "^1.1.6",
+    "@types/jest": "^22.2.3",
+    "@types/react": "^16.3.10",
+    "@types/react-test-renderer": "^16.0.1",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.0",
+    "react": "^16.3.1",
+    "react-test-renderer": "^16.3.1",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.4.3",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "^2.8.1"
+  },
+  "files": [
+    "cjs/",
+    "esnext/",
+    "jsm/"
+  ]
+}

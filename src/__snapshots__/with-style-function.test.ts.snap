@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`styled with style function styles with predefined styled component 1`] = `
+<div
+  className="a"
+/>
+`;
