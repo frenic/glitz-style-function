@@ -1,6 +1,6 @@
 {
   "name": "glitz-style-function",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./cjs/index.js",
   "module": "./jsm/index.js",
   "esnext": "./esnext/index.js",
@@ -24,7 +24,8 @@
     "@glitz/type": "^1.1.4"
   },
   "peerDependencies": {
-    "@glitz/react": "^1.1.5"
+    "@glitz/react": "^1.1.5",
+    "react": "15.x - 16.x"
   },
   "devDependencies": {
     "@glitz/core": "^1.1.5",
