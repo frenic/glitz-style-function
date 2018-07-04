@@ -1,10 +1,10 @@
 {
   "name": "glitz-style-function",
   "version": "0.0.2",
-  "main": "./cjs/index.js",
-  "module": "./jsm/index.js",
-  "esnext": "./esnext/index.js",
-  "types": "./esnext/index.d.ts",
+  "main": "./cjs/with-style-function.js",
+  "module": "./jsm/with-style-function.js",
+  "esnext": "./esnext/with-style-function.js",
+  "types": "./types/with-style-function.d.ts",
   "license": "MIT",
   "author": "Fredrik Nicol <fredrik.nicol@gmail.com>",
   "homepage": "https://github.com/frenic/glitz-style-function",
@@ -12,40 +12,41 @@
   "bugs": "https://github.com/frenic/glitz-style-function/issues",
   "side-effects": false,
   "scripts": {
-    "clean": "rimraf cjs esnext jsm",
+    "clean": "rimraf cjs esnext jsm types",
     "lint": "tslint --fix src/*.ts",
     "pretty": "prettier --write \"**/*.{js,json,ts,tsx,html,md}\"",
     "test": "jest",
-    "build": "tsc -p tsconfig.cjs.json & tsc -p tsconfig.esnext.json & tsc -p tsconfig.jsm.json",
+    "build": "tsc -p tsconfig.cjs.json & tsc -p tsconfig.esnext.json & tsc -p tsconfig.jsm.json & tsc -p tsconfig.dts.json",
     "lazy": "npm run lint && npm run pretty",
     "prepublish": "npm run test && npm run build"
   },
   "dependencies": {
+    "@types/react": "*",
     "@glitz/type": "^1.1.4"
   },
   "peerDependencies": {
-    "@glitz/react": "^1.1.5",
-    "react": "15.x - 16.x"
+    "@glitz/react": "^2.0.0"
   },
   "devDependencies": {
-    "@glitz/core": "^1.1.5",
-    "@glitz/react": "^1.1.6",
+    "@glitz/core": "^2.0.0-alpha.1",
+    "@glitz/react": "^2.0.0-alpha.2",
     "@types/jest": "^22.2.3",
-    "@types/react": "^16.3.10",
+    "@types/react": "^16.3.14",
     "@types/react-test-renderer": "^16.0.1",
-    "jest": "^22.4.3",
-    "prettier": "^1.12.0",
-    "react": "^16.3.1",
-    "react-test-renderer": "^16.3.1",
+    "jest": "^22.4.4",
+    "prettier": "^1.12.1",
+    "react": "^16.4.0",
+    "react-test-renderer": "^16.4.0",
     "rimraf": "^2.6.2",
-    "ts-jest": "^22.4.3",
-    "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.10.0",
-    "typescript": "^2.8.1"
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.8.3"
   },
   "files": [
     "cjs/",
     "esnext/",
-    "jsm/"
+    "jsm/",
+    "types/"
   ]
 }

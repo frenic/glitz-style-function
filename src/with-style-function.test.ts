@@ -1,17 +1,17 @@
-import GlitzClient from '@glitz/core';
+import { GlitzClient } from '@glitz/core';
 import { GlitzProvider, styled, StyledProps } from '@glitz/react';
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
-import withStyleFunction from './';
+import withStyleFunction from './with-style-function';
 
 describe('styled with style function', () => {
   it('styles with custom styled component', () => {
     const StyledComponent = withStyleFunction(
-      styled(props => {
+      props => {
         expect(props.apply()).toBe('a');
-        expect(props.compose()).toEqual({ color: 'red' });
+        expect(props.compose()).toEqual([{ color: 'red' }]);
         return React.createElement('div');
-      }),
+      },
       () => ({ color: 'red' }),
     );
 
@@ -22,6 +22,50 @@ describe('styled with style function', () => {
           glitz: new GlitzClient(),
         },
         React.createElement(StyledComponent),
+      ),
+    );
+  });
+  it('composes styled with function', () => {
+    const StyledComponent = withStyleFunction(
+      props => {
+        expect(props.apply()).toBe('a b');
+        expect(props.compose()).toEqual([{ color: 'red' }, { backgroundColor: 'red' }]);
+        return React.createElement('div');
+      },
+      () => ({ color: 'red' }),
+    );
+
+    const ComposedComponent = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
+
+    renderer.create(
+      React.createElement(
+        GlitzProvider,
+        {
+          glitz: new GlitzClient(),
+        },
+        React.createElement(ComposedComponent),
+      ),
+    );
+  });
+  it('composes styled without function', () => {
+    const StyledComponent = styled(
+      props => {
+        expect(props.apply()).toBe('a b');
+        expect(props.compose()).toEqual([{ color: 'red' }, { backgroundColor: 'red' }]);
+        return React.createElement('div');
+      },
+      { color: 'red' },
+    );
+
+    const ComposedComponent = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
+
+    renderer.create(
+      React.createElement(
+        GlitzProvider,
+        {
+          glitz: new GlitzClient(),
+        },
+        React.createElement(ComposedComponent),
       ),
     );
   });

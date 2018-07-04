@@ -57,6 +57,8 @@
   "exclude": [
     "cjs/",
     "esnext/",
-    "jsm"
+    "jsm/",
+    "types/",
+    "**/*.test.ts"
   ]
 }

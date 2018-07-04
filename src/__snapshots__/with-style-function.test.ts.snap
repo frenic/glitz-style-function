@@ -2,6 +2,8 @@
 
 exports[`styled with style function styles with predefined styled component 1`] = `
 <div
+  apply={[Function]}
   className="a"
+  compose={[Function]}
 />
 `;
