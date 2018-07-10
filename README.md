@@ -9,7 +9,7 @@ import withStyleFunction from 'glitz-style-function';
 const Link = withStyleFunction(styled.A, props => ({ fontSize: props.$size === 'large' ? '24px' : '18px' }));
 
 const Message = withStyleFunction(
-  styled(props => {
+  props => (
     <div>
       {props.title}
       {props.children}
@@ -17,7 +17,7 @@ const Message = withStyleFunction(
         More info
       </Link>
     </div>;
-  }),
+  ),
   props => ({ backgroundColor: props.$success ? 'green' : 'red' }),
 );
 

@@ -22,26 +22,26 @@
   },
   "dependencies": {
     "@types/react": "*",
-    "@glitz/type": "^1.1.4"
+    "@glitz/type": "^2.0.0-alpha.1"
   },
   "peerDependencies": {
-    "@glitz/react": "^2.0.0"
+    "@glitz/react": "^2.0.0-alpha.4"
   },
   "devDependencies": {
     "@glitz/core": "^2.0.0-alpha.1",
-    "@glitz/react": "^2.0.0-alpha.2",
-    "@types/jest": "^22.2.3",
-    "@types/react": "^16.3.14",
+    "@glitz/react": "^2.0.0-alpha.4",
+    "@types/jest": "^23.1.5",
+    "@types/react": "^16.4.6",
     "@types/react-test-renderer": "^16.0.1",
-    "jest": "^22.4.4",
-    "prettier": "^1.12.1",
-    "react": "^16.4.0",
-    "react-test-renderer": "^16.4.0",
+    "jest": "^23.4.0",
+    "prettier": "^1.13.7",
+    "react": "^16.4.1",
+    "react-test-renderer": "^16.4.1",
     "rimraf": "^2.6.2",
-    "ts-jest": "^22.4.6",
+    "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.2"
   },
   "files": [
     "cjs/",

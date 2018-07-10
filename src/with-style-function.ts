@@ -15,12 +15,12 @@ export type StyleFunction<TStyleProps> = (props: TStyleProps) => Style;
 export default function withStyleFunction<TProps, TStyleProps>(
   component: StyledComponent<TProps>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<TProps & TStyleProps>;
+): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<TProps extends StyledElementProps, TStyleProps>(
   component: StyledElementLike<React.StatelessComponent<TProps>>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<TProps & TStyleProps>;
+): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<
   TProps extends StyledElementProps,
@@ -29,12 +29,12 @@ export default function withStyleFunction<
 >(
   component: StyledElementLike<React.ClassType<TProps, TInstance, React.ComponentClass<TProps>>>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<WithInnerRefProp<TProps & TStyleProps, TInstance>>;
+): StyledWithFunctionComponent<WithInnerRefProp<TProps, TInstance>, TStyleProps>;
 
 export default function withStyleFunction<TProps extends StyledProps, TStyleProps>(
   component: React.StatelessComponent<TProps>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<TProps & TStyleProps>;
+): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<
   TProps extends StyledProps,
@@ -43,7 +43,7 @@ export default function withStyleFunction<
 >(
   component: React.ClassType<TProps, TInstance, React.ComponentClass<TProps>>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<WithInnerRefProp<TProps & TStyleProps, TInstance>>;
+): StyledWithFunctionComponent<WithInnerRefProp<TProps, TInstance>, TStyleProps>;
 
 export default function withStyleFunction<TProps, TStyleProps>(
   type:
@@ -51,7 +51,7 @@ export default function withStyleFunction<TProps, TStyleProps>(
     | StyledWithFunctionComponent<TProps, TStyleProps>
     | React.ComponentType<TProps>,
   style: StyleFunction<TStyleProps>,
-): StyledComponent<TProps & TStyleProps> {
+): StyledWithFunctionComponent<TProps, TStyleProps> {
   return isStyledWithStyleFunction<TProps, TStyleProps>(type)
     ? type.compose([style])
     : factory<TProps, TStyleProps>(type, [style]);
@@ -68,7 +68,7 @@ class StyledWithFunctionSuper<TProps, TStyleProps> extends StyledSuper<TProps & 
 function factory<TProps, TStyleProps>(
   type: StyledElementLike<React.ComponentType<TProps>> | React.ComponentType<TProps>,
   styles: Array<Style | StyleFunction<TStyleProps>>,
-): StyledComponent<TProps & TStyleProps> {
+): StyledWithFunctionComponent<TProps, TStyleProps> {
   // tslint:disable-next-line max-classes-per-file
   return class StyledWithFunction extends StyledWithFunctionSuper<TProps, TStyleProps> {
     public static compose<TMoreStyleProps>(additionals?: Array<Style | StyleFunction<TMoreStyleProps>>) {
