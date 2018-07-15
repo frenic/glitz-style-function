@@ -35,6 +35,28 @@ describe('styled with style function', () => {
       () => ({ color: 'red' }),
     );
 
+    const ComposedComponentA = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
+
+    renderer.create(
+      React.createElement(
+        GlitzProvider,
+        {
+          glitz: new GlitzClient(),
+        },
+        React.createElement(ComposedComponentA),
+      ),
+    );
+  });
+  it('composes with original styled', () => {
+    const StyledComponent = styled(
+      props => {
+        expect(props.apply()).toBe('a b');
+        expect(props.compose()).toEqual([{ color: 'red' }, { backgroundColor: 'red' }]);
+        return React.createElement('div');
+      },
+      { color: 'red' },
+    );
+
     const ComposedComponent = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
 
     renderer.create(
@@ -47,17 +69,17 @@ describe('styled with style function', () => {
       ),
     );
   });
-  it('composes styled without function', () => {
-    const StyledComponent = styled(
+  it('composes by original styled', () => {
+    const StyledComponent = withStyleFunction(
       props => {
         expect(props.apply()).toBe('a b');
         expect(props.compose()).toEqual([{ color: 'red' }, { backgroundColor: 'red' }]);
         return React.createElement('div');
       },
-      { color: 'red' },
+      () => ({ color: 'red' }),
     );
 
-    const ComposedComponent = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
+    const ComposedComponent = styled(StyledComponent, { backgroundColor: 'red' });
 
     renderer.create(
       React.createElement(
@@ -105,10 +127,10 @@ describe('styled with style function', () => {
   });
   it('emits props prefixed with `$`', () => {
     const StyledComponent = withStyleFunction(
-      styled(({ apply, compose, ...props }: { prop: string; $prop: string } & StyledProps) => {
+      ({ apply, compose, ...props }: { prop: string; $prop: string } & StyledProps) => {
         expect(props).toEqual({ prop: '' });
         return React.createElement('div');
-      }),
+      },
       () => ({}),
     );
 

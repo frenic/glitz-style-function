@@ -5,10 +5,10 @@ import {
   StyledElementLike,
   StyledElementProps,
   StyledProps,
-  StyledSuper,
   WithInnerRefProp,
 } from '@glitz/react';
-import { Style, StyleArray } from '@glitz/type';
+import { Style, StyleArray, StyleOrStyleArray } from '@glitz/type';
+import * as React from 'react';
 
 export type StyleFunction<TStyleProps> = (props: TStyleProps) => Style;
 
@@ -63,7 +63,7 @@ interface StyledWithFunctionComponent<TProps, TStyleProps> extends StyledCompone
   ): StyledWithFunctionComponent<TProps, TStyleProps & TMoreStyleProps>;
 }
 
-class StyledWithFunctionSuper<TProps, TStyleProps> extends StyledSuper<TProps & TStyleProps> {}
+class StyledWithFunctionSuper<TProps, TStyleProps> extends React.Component<ExternalProps<TProps & TStyleProps>> {}
 
 function factory<TProps, TStyleProps>(
   type: StyledElementLike<React.ComponentType<TProps>> | React.ComponentType<TProps>,
@@ -85,9 +85,19 @@ function factory<TProps, TStyleProps>(
       this.render = () => {
         const currentProps = this.props as any;
         const innerProps = {} as ExternalProps<TProps>;
+        let additional: StyleOrStyleArray | undefined = innerProps.css;
 
         let key: string;
         for (key in currentProps) {
+          if (key === 'compose' && typeof currentProps[key] === 'function') {
+            additional = currentProps[key](innerProps.css);
+            continue;
+          }
+
+          if (key === 'apply' && typeof currentProps[key] === 'function') {
+            continue;
+          }
+
           if (key[0] !== '$') {
             innerProps[key as keyof ExternalProps<TProps>] = currentProps[key] as any;
           }
@@ -98,7 +108,7 @@ function factory<TProps, TStyleProps>(
           result.push(typeof style === 'function' ? style(currentProps) : style);
         }
 
-        innerProps.css = innerProps.css ? result.concat(innerProps.css) : result;
+        innerProps.css = additional ? result.concat(additional) : result;
 
         return renderWithProps(innerProps);
       };
