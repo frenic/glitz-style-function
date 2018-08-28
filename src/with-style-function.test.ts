@@ -25,6 +25,26 @@ describe('styled with style function', () => {
       ),
     );
   });
+  it('styles without style function', () => {
+    const StyledComponent = withStyleFunction(
+      props => {
+        expect(props.apply()).toBe('a');
+        expect(props.compose()).toEqual([{ color: 'red' }]);
+        return React.createElement('div');
+      },
+      { color: 'red' },
+    );
+
+    renderer.create(
+      React.createElement(
+        GlitzProvider,
+        {
+          glitz: new GlitzClient(),
+        },
+        React.createElement(StyledComponent),
+      ),
+    );
+  });
   it('composes styled with function', () => {
     const StyledComponent = withStyleFunction(
       props => {

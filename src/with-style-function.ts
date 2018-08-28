@@ -14,12 +14,12 @@ export type StyleFunction<TStyleProps> = (props: TStyleProps) => Style;
 
 export default function withStyleFunction<TProps, TStyleProps>(
   component: StyledComponent<TProps>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<TProps extends StyledElementProps, TStyleProps>(
   component: StyledElementLike<React.StatelessComponent<TProps>>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<
@@ -28,12 +28,12 @@ export default function withStyleFunction<
   TInstance extends React.Component<TProps, React.ComponentState>
 >(
   component: StyledElementLike<React.ClassType<TProps, TInstance, React.ComponentClass<TProps>>>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<WithInnerRefProp<TProps, TInstance>, TStyleProps>;
 
 export default function withStyleFunction<TProps extends StyledProps, TStyleProps>(
   component: React.StatelessComponent<TProps>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<TProps, TStyleProps>;
 
 export default function withStyleFunction<
@@ -42,7 +42,7 @@ export default function withStyleFunction<
   TInstance extends React.Component<TProps, React.ComponentState>
 >(
   component: React.ClassType<TProps, TInstance, React.ComponentClass<TProps>>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<WithInnerRefProp<TProps, TInstance>, TStyleProps>;
 
 export default function withStyleFunction<TProps, TStyleProps>(
@@ -50,7 +50,7 @@ export default function withStyleFunction<TProps, TStyleProps>(
     | StyledElementLike<React.ComponentType<TProps>>
     | StyledWithFunctionComponent<TProps, TStyleProps>
     | React.ComponentType<TProps>,
-  style: StyleFunction<TStyleProps>,
+  style: Style | StyleFunction<TStyleProps>,
 ): StyledWithFunctionComponent<TProps, TStyleProps> {
   return isStyledWithStyleFunction<TProps, TStyleProps>(type)
     ? type.compose([style])
