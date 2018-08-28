@@ -5,7 +5,7 @@ import * as renderer from 'react-test-renderer';
 import withStyleFunction from './with-style-function';
 
 describe('styled with style function', () => {
-  it('styles with custom styled component', () => {
+  it('styles with style function', () => {
     const StyledComponent = withStyleFunction(
       props => {
         expect(props.apply()).toBe('a');
@@ -45,7 +45,7 @@ describe('styled with style function', () => {
       ),
     );
   });
-  it('composes styled with function', () => {
+  it('styled with function composes styled with function', () => {
     const StyledComponent = withStyleFunction(
       props => {
         expect(props.apply()).toBe('a b');
@@ -67,7 +67,7 @@ describe('styled with style function', () => {
       ),
     );
   });
-  it('composes styled without function', () => {
+  it('styled with function composes with original styled', () => {
     const StyledComponent = styled(
       props => {
         expect(props.apply()).toBe('a b');
@@ -78,6 +78,28 @@ describe('styled with style function', () => {
     );
 
     const ComposedComponent = withStyleFunction(StyledComponent, () => ({ backgroundColor: 'red' }));
+
+    renderer.create(
+      React.createElement(
+        GlitzProvider,
+        {
+          glitz: new GlitzClient(),
+        },
+        React.createElement(ComposedComponent),
+      ),
+    );
+  });
+  it('original styled composes with styled with function', () => {
+    const StyledComponent = withStyleFunction(
+      props => {
+        expect(props.apply()).toBe('a b');
+        expect(props.compose()).toEqual([{ color: 'red' }, { backgroundColor: 'red' }]);
+        return React.createElement('div');
+      },
+      () => ({ color: 'red' }),
+    );
+
+    const ComposedComponent = styled(StyledComponent, { backgroundColor: 'red' });
 
     renderer.create(
       React.createElement(
