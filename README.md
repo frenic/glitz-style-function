@@ -1,6 +1,6 @@
 # ![Glitz](https://github.com/frenic/glitz/raw/master/glitz.svg?sanitize=true)
 
-A tiny [Glitz](https://github.com/frenic/glitz) utility function to be able to pass props to a style function. Any `$`-prefixed props will be emitted and never reach the inner styled component.
+A tiny [Glitz](https://github.com/frenic/glitz) utility function to be able to pass props to a style function. Any `$`-prefixed props will be emitted and never reach the inner styled component. It's basically an alternative `styled` function that accepts functions that returns a style object as a second argument, which original `styled` doesn't.
 
 ```tsx
 import { styled } from '@glitz/react';
@@ -10,7 +10,7 @@ const Link = withStyleFunction(styled.A, props => ({ fontSize: props.$size === '
 
 const Message = withStyleFunction(
   props => (
-    <div>
+    <div className={props.apply()}>
       {props.title}
       {props.children}
       <Link href="/more/info" $size="large">
@@ -27,3 +27,7 @@ export default () => {
   </Message>;
 };
 ```
+
+Read more at [@glitz/react](https://github.com/frenic/glitz/tree/master/packages/react)!
+
+_Note! This package was primarily created for a easier migration from Styletron to Glitz._
