@@ -1,6 +1,6 @@
 {
   "name": "glitz-style-function",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "main": "./cjs/with-style-function.js",
   "module": "./jsm/with-style-function.js",
   "esnext": "./esnext/with-style-function.js",
